@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.petpack;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.alex.myapplication", appContext.getPackageName());
+        assertEquals("com.example.petpack", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.petpack;
 
 import org.junit.Test;
 
