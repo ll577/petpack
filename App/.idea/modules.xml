@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/App.iml" filepath="$PROJECT_DIR$/App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ColorArt/ColorArt.iml" filepath="$PROJECT_DIR$/ColorArt/ColorArt.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ColorArt/library/library.iml" filepath="$PROJECT_DIR$/ColorArt/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/petpack/petpack.iml" filepath="$PROJECT_DIR$/petpack/petpack.iml" />
     </modules>
   </component>

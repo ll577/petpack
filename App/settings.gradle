@@ -1,1 +1,1 @@
-include ':app', ':petpack'
+include ':app', ':petpack', 'ColorArt:library'
