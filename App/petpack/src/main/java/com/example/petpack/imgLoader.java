@@ -1,5 +1,6 @@
 package com.example.petpack;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,13 +10,16 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.michaelevans.colorart.library.ColorArt;
 
 import java.io.IOException;
 
-public class imgLoader extends AppCompatActivity {
+public class imgLoader extends Activity {
     //this static var is letting us pass various 'intents' to the on activity result listener
     //well use switch statements so we only need one override function
     //this is just a random number, it only needs to be unique and a constant
@@ -26,13 +30,25 @@ public class imgLoader extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //does the initial loading
         super.onCreate(savedInstanceState);
+        //no title bar because it looks horrible
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_img_loader);
-        //called once on load, shoudl probably change this but whatevz
-        //TODO move this to a button or something and design a layout
-        pickImage();
+        //creates a button and a listener for the click
+        final Button button = findViewById(R.id.openGal);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                pickImage();
+            }
+        });
+   
+
 
     }
     @Override
