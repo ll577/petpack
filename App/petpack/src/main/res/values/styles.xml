@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <resources>
 
     <!-- Base application theme. -->
@@ -7,5 +8,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
 </resources>

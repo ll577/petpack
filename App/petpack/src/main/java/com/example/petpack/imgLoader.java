@@ -47,7 +47,7 @@ public class imgLoader extends Activity {
                 pickImage();
             }
         });
-   
+
 
 
     }
@@ -88,7 +88,7 @@ public class imgLoader extends Activity {
 //            colorArt.getDetailColor()
 
 
-        //TODO  //if bitmap is too large color picking crashes
+        //TODO  //if bitmap is too large color picking crashes use picasso library
         if (petPhoto != null) {
             primaryColors = new ColorArt(petPhoto);
             findViewById(R.id.backgroundColor).setBackgroundColor(primaryColors.getSecondaryColor());
