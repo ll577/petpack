@@ -20,16 +20,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            ></activity>
+            >
+        </activity>
         <activity android:name=".imgLoader">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".mainMenu"
+            android:label="@string/title_activity_main_menu" />
+        <activity
+            android:name=".createPet"
+            android:label="@string/title_activity_create_pet"></activity>
     </application>
 
 </manifest>

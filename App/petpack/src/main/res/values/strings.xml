@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">petPack</string>
     <string name="ayylmao">ayylmao</string>
+    <string name="title_activity_main_menu">mainMenu</string>
+    <string name="background_image">background Image</string>
+    <string name="petpack_v_00001">petPack v.00001</string>
+    <string name="title_activity_create_pet">createPet</string>
+    <string name="name_nage">Name........:\n
+                             Age.........:\n
+                             Birth Date..:\n</string>
 </resources>

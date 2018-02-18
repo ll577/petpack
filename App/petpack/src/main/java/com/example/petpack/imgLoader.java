@@ -1,6 +1,7 @@
 package com.example.petpack;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,7 +19,9 @@ import android.widget.ImageView;
 
 import org.michaelevans.colorart.library.ColorArt;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class imgLoader extends Activity {
     //this static var is letting us pass various 'intents' to the on activity result listener
@@ -47,7 +51,10 @@ public class imgLoader extends Activity {
                 pickImage();
             }
         });
-
+        //if we come from an activity where we said open image picker, then do it
+        if (getIntent().getExtras().get("action").equals("loadImage")) {
+            pickImage();
+        }
 
 
     }
@@ -88,7 +95,7 @@ public class imgLoader extends Activity {
 //            colorArt.getDetailColor()
 
 
-        //TODO  //if bitmap is too large color picking crashes use picasso library
+        //TODO  //if bitmap is too large color picking crashes— use picasso library
         if (petPhoto != null) {
             primaryColors = new ColorArt(petPhoto);
             findViewById(R.id.backgroundColor).setBackgroundColor(primaryColors.getSecondaryColor());
@@ -104,5 +111,7 @@ public class imgLoader extends Activity {
         //open gallery
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
+    //to save previous colors/pets
+    //TODO make pet class
 
 }

@@ -13,7 +13,7 @@ public class splash extends Activity {
         //this switches to main activity from the splash screen, all stuff is done in XML
         //keep this activity blank.
 
-        Intent intent = new Intent(this, imgLoader.class);
+        Intent intent = new Intent(this, mainMenu.class);
         startActivity(intent);
     }
 }
