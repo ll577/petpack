@@ -28,20 +28,22 @@ public class packedPet {
     private Context context;
 
 
-    public packedPet(Context context, String petData) {
+    //creation function
+    public packedPet(Context context, String name) {
         this.context=context;
-        name=petData;
+        this.name=name;
         compileData();
         savePet();
     }
 
-
+    //TODO compile
     private void compileData() {
         compiledSaveData=name+"!";
     }
     private void savePet(){
         writeToFile(compiledSaveData, context);
     }
+    //TODO load/delete functions
     //to save a pet to file
     private void writeToFile(String data,Context context) {
         File path = context.getExternalFilesDir(null);
@@ -70,6 +72,64 @@ public class packedPet {
 
     }
 
+    public Color getPriColor() {
+        return priColor;
+    }
 
+    public void setPriColor(Color priColor) {
+        this.priColor = priColor;
+    }
+
+    public Color getSecColor() {
+        return secColor;
+    }
+
+    public void setSecColor(Color secColor) {
+        this.secColor = secColor;
+    }
+
+    public Color getTertColor() {
+        return tertColor;
+    }
+
+    public void setTertColor(Color tertColor) {
+        this.tertColor = tertColor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Uri getGeneratedBitmapURI() {
+        return generatedBitmapURI;
+    }
 
 }

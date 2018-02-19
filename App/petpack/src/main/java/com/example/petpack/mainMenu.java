@@ -24,7 +24,7 @@ public class mainMenu extends Activity {
             }
         });
         final Button button1 = findViewById(R.id.gotoCreatePet);
-        button.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), createPet.class);
                 startActivity(intent);
