@@ -1,5 +1,6 @@
 package com.example.petpack;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,8 +12,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -24,6 +27,8 @@ import org.michaelevans.colorart.library.ColorArt;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -38,7 +43,16 @@ public class createPet extends Activity {
     //named for clarity
     private static final int RESULT_LOAD_IMAGE = 217;
     private static Bitmap petPhoto;
+    private Bitmap processedBmp;
+    Calendar myCalendar = Calendar.getInstance();
+    EditText dateBox;
+
+
+    //petstuff
     ColorArt primaryColors;
+    int priColor = 0;
+    int secColor =0;
+
 
     public static Bitmap getPetPhoto() {
         return petPhoto;
@@ -56,6 +70,7 @@ public class createPet extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pet);
         this.context = getApplicationContext();
+        dateBox = findViewById(R.id.birthEdit);
 
 
         //
@@ -69,6 +84,7 @@ public class createPet extends Activity {
                 OnCreatePetButtonClick();
             }
         });
+
         final ImageButton loadImageButton = findViewById(R.id.loadImage);
         loadImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -77,56 +93,96 @@ public class createPet extends Activity {
         });
 
 
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
 
+        };
 
-
-
-
-
-
-
-
-
-
+        dateBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(createPet.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
     }
-
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        dateBox.setText(sdf.format(myCalendar.getTime()));
+    }
     private void OnLoadImageButtonClick() {
         pickImage();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != RESULT_OK) {
-            return;
-        }
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
-            loadImage(data);
 
-        }
-    }
-    private void OnCreatePetButtonClick(){
-        EditText mEdit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private boolean OnCreatePetButtonClick(){
+
         //todo sanitize inputs, pull all data from fields, make pretty
-        mEdit = (EditText) findViewById(R.id.NameEdit);
-        String name = mEdit.getText().toString();
-        mEdit = (EditText) findViewById(R.id.ageEdit);
-        String temp=mEdit.getText().toString();
-        if (!temp.equals("")) {
-            int age = Integer.parseInt(temp);
+        //todo pull the image to pet object, and also save
+        //todo figure out why error message is white text
+        String name = parseName();
+
+        Date birthdate=parseDate();
+        if (name.equals("")) {
+            return false;
         }
-        mEdit = (EditText) findViewById(R.id.ageEdit);
-        try {
-            Date birthdate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(mEdit.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (birthdate.equals(new Date())) {
+            return false;
         }
+
         packedPet pet = new packedPet(context, name);
+        pet.setBirthDate(birthdate);
+        return true;
+
     }
 
+    private String parseName(){
+        EditText mEdit;
+        mEdit = (EditText) findViewById(R.id.nameEdit);
+        String name=mEdit.getText().toString();
+        if (name.equals("")) {
+            mEdit.setError("ayy dont do dis");
+            return "";
+        }
+        return name;}
+
+    private Date parseDate(){
+        EditText mEdit;
+        Date birthdate;
+        mEdit = (EditText) findViewById(R.id.birthEdit);
+        try {
+            birthdate = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH).parse(mEdit.getText().toString());
+        } catch (ParseException e) {
+            mEdit.setError( "First name is required!" );
+            return new Date();
+        }
+        return birthdate;
+    }
 
 
 
@@ -167,7 +223,8 @@ public class createPet extends Activity {
         Bitmap petTemplateIM = BitmapFactory.decodeResource(getResources(), R.drawable.template_cat_1);
         //required to make it editable
         Bitmap petTemplate = petTemplateIM.copy(Bitmap.Config.ARGB_8888, true);
-
+        //reduce memory footprint
+        petTemplateIM=null;
 
 
         //now we have a photo to feed wherever
@@ -181,17 +238,21 @@ public class createPet extends Activity {
 //            colorArt.getSecondaryColor()
 //            colorArt.getDetailColor()
 
-        int priColor = 0;
-        int secColor =0;
-        //TODO  //if bitmap is too large color picking crashes— use picasso library
+
         if (petPhoto != null) {
             primaryColors = new ColorArt(petPhoto);
             priColor=primaryColors.getBackgroundColor();
+            if (priColor==Color.BLACK) {
+                priColor=primaryColors.getDetailColor();
+            }
             secColor=primaryColors.getPrimaryColor();
+            if (secColor==Color.BLACK) {
+                secColor=primaryColors.getSecondaryColor();
+            }
+
         }
 
-        Log.d("LMAO", "processBitmap: "+priColor+">"+secColor+">"+Color.RED);
-        Bitmap processedBmp = processBitmap(petTemplate,priColor,secColor);
+        processedBmp = processBitmap(petTemplate,priColor,secColor);
         ImageButton mImg = findViewById(R.id.loadImage);
         try {
             mImg.setImageBitmap(processedBmp);
@@ -204,10 +265,16 @@ public class createPet extends Activity {
     private Bitmap processBitmap(Bitmap petTemplate, int priColor, int secColor) {
         int [] allpixels = new int [petTemplate.getHeight() * petTemplate.getWidth()];
         petTemplate.getPixels(allpixels, 0, petTemplate.getWidth(), 0, 0, petTemplate.getWidth(), petTemplate.getHeight());
-        Log.d(TAG, "processBitmap: "+priColor+">"+secColor+">"+Color.RED);
         for(int i = 0; i < allpixels.length; i++){
-            if(allpixels[i] == Color.RED){
+            if (allpixels[i]==-1) {
+
+            }
+            //color is stored as a weird int, we set a specific color in our template, and replace all instances of that
+            //color with whatever we pull from submitted photo
+            else if(allpixels[i] == -64980){
+                //02-19 20:56:43.735 23189-23189/com.example.petpack D/AYYY: processBitmap: -16777216>-65536
                 allpixels[i] = priColor;
+
             } else if(allpixels[i] == Color.GREEN){
                 allpixels[i] = secColor;
             }
@@ -215,6 +282,9 @@ public class createPet extends Activity {
         petTemplate.setPixels(allpixels,0,petTemplate.getWidth(),0, 0, petTemplate.getWidth(),petTemplate.getHeight());
         return petTemplate;
     }
+
+
+
 
 
 
@@ -227,6 +297,20 @@ public class createPet extends Activity {
         intent.putExtra("return-data", true);
         //open gallery
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
+    }
+    //pick image leads into this
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != RESULT_OK) {
+            //todo log something probs
+            return;
+        }
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
+            loadImage(data);
+
+        }
     }
 
 
