@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.petpack.animatedPetCreation">
+
+    <LinearLayout
+        android:id="@+id/layoutbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="240dp">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/theme_edittext_lightgray"
+            android:text="Enter a name for your pet"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/theme_edittext_lightgray"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:requiresFadingEdge="horizontal|vertical"
+            android:shadowColor="@android:color/background_dark"
+            android:textColor="@color/transparent_bg" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

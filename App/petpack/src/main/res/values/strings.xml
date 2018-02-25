@@ -8,4 +8,9 @@
     <string name="name_nage">Name........:\n
                              Age.........:\n
                              Birth Date..:\n</string>
+    <string name="title_activity_animated_pet_creation">animatedPetCreation</string>
+
+    <string name="title_activity_pet_creation_animated">petCreationAnimated</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

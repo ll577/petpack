@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/anim_grad_pacific_dream"
+        android:duration="5000" />
+    <item
+        android:drawable="@drawable/anim_grad_venice"
+        android:duration="5000" />
+    <item
+        android:drawable="@drawable/anim_grad_love_and_liberty"
+        android:duration="5000" />
+    <item
+        android:drawable="@drawable/anim_grad_can_you_feel_the_love_tonight"
+        android:duration="5000" />
+    <item
+        android:drawable="@drawable/anim_grad_honey_dew"
+        android:duration="5000" />
+    <item
+        android:drawable="@drawable/anim_grad_the_blue_lagoon"
+        android:duration="5000" />
+</animation-list>

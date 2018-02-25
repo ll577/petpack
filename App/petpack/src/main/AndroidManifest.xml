@@ -32,7 +32,8 @@
             android:label="@string/title_activity_main_menu" />
         <activity
             android:name=".createPet"
-            android:label="@string/title_activity_create_pet"></activity>
+            android:label="@string/title_activity_create_pet" />
+        <activity android:name=".animatedPetCreation"></activity>
     </application>
 
 </manifest>

@@ -34,7 +34,7 @@ import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 import static android.graphics.Color.argb;
-
+//todo this is hella messy
 public class createPet extends Activity {
     private static Context context;
     //this static var is letting us pass various 'intents' to the on activity result listener
@@ -130,16 +130,6 @@ public class createPet extends Activity {
 
 
 
-
-
-
-
-
-
-
-
-
-
     private boolean OnCreatePetButtonClick(){
 
         //todo sanitize inputs, pull all data from fields, make pretty
@@ -193,23 +183,16 @@ public class createPet extends Activity {
     //feed picasso to get a bmp back
     Target loadPicassoImage = new Target() {
             @Override
-            public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from) {
-                            /* Save the bitmap or do something with it here */
-            createPet.setPetPhoto(bitmap);
-
-            //Set it in the ImageView
-        }
-
+            public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from) {createPet.setPetPhoto(bitmap);}
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-        }
-
+            public void onPrepareLoad(Drawable placeHolderDrawable) {}
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
             Log.d("err", "onBitmapFailed: ");
         }
     };
-    //TODO this is broken
+
+
     public void loadImage(Intent data) {
         //get the file URI from data
         Uri imageUri = data.getData();
@@ -251,7 +234,6 @@ public class createPet extends Activity {
             }
 
         }
-
         processedBmp = processBitmap(petTemplate,priColor,secColor);
         ImageButton mImg = findViewById(R.id.loadImage);
         try {
@@ -267,7 +249,6 @@ public class createPet extends Activity {
         petTemplate.getPixels(allpixels, 0, petTemplate.getWidth(), 0, 0, petTemplate.getWidth(), petTemplate.getHeight());
         for(int i = 0; i < allpixels.length; i++){
             if (allpixels[i]==-1) {
-
             }
             //color is stored as a weird int, we set a specific color in our template, and replace all instances of that
             //color with whatever we pull from submitted photo

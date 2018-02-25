@@ -17,7 +17,7 @@ public class mainMenu extends Activity {
         final Button button = findViewById(R.id.gotoImageLoader);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), imgLoader.class);
+                Intent intent = new Intent(getApplicationContext(), animatedPetCreation.class);
                 intent.putExtra("action", "loadImage");
                 startActivity(intent);
 
