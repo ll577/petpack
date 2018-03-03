@@ -18,12 +18,16 @@ tools:context="com.example.petpack.animatedPetCreation">
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/theme_edittext_lightgray"
-            android:text="Enter a name for your pet"
+            android:text="enter a color"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/textBox"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/theme_edittext_lightgray"

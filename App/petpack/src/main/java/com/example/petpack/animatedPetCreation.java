@@ -2,40 +2,54 @@ package com.example.petpack;
 
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.transition.AutoTransition;
-import android.transition.Fade;
 import android.transition.Scene;
 import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class animatedPetCreation extends Activity {
-    Scene mAScene;
-    Scene mAnotherScene;
-    Scene swap;
-    Transition mFadeTransition = new AutoTransition();
-    LinearLayout container;
-    AnimationDrawable anim;
+import static android.content.ContentValues.TAG;
 
+public class animatedPetCreation extends Activity implements View.OnClickListener {
+    private static final int NUMBER_OF_SCENES=3;
+
+    Scene[] sceneIndex = new Scene[NUMBER_OF_SCENES];
+    int scenei = 0;
+    Transition mFadeTransition = new AutoTransition();
+    ConstraintLayout container;
+    AnimationDrawable anim;
+    String petData="";
+    int prevScene=0;
+
+
+    //buttons
+
+    @Override
+    public void onClick(View V) {
+        int id = V.getId();
+        switch (id) {
+            case R.id.gotoNextScene:
+                ongotoNextSceneClick();
+                break;
+            case R.id.gotoPrevScene:
+                ongotoPrevSceneClick();
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animated_pet_creation);
-        final Button button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onButton2Click();
-            }
-        });
-        container = (LinearLayout) findViewById(R.id.container1);
 
+        container = findViewById(R.id.container1);
         anim = (AnimationDrawable) container.getBackground();
         anim.setEnterFadeDuration(2500);
         anim.setExitFadeDuration(2500);
@@ -44,12 +58,13 @@ public class animatedPetCreation extends Activity {
         ViewGroup mSceneRoot = (ViewGroup) findViewById(R.id.layoutbox);
 
 // Create the scenes
-        mAnotherScene = Scene.getSceneForLayout(mSceneRoot, R.layout.a_pet_creation_name_scene, this);
-        mAScene = Scene.getSceneForLayout(mSceneRoot, R.layout.a_pet_creation_name_scene2, this);
 
-
-
+        sceneIndex[1] = Scene.getSceneForLayout(mSceneRoot, R.layout.activity_scene_animatedpet_birthday, this);
+        sceneIndex[0] = Scene.getSceneForLayout(mSceneRoot, R.layout.a_pet_creation_name_scene, this);
+        sceneIndex[2] = Scene.getSceneForLayout(mSceneRoot, R.layout.a_pet_creation_color_scene, this);
+        TransitionManager.go(sceneIndex[0], mFadeTransition);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -64,17 +79,75 @@ public class animatedPetCreation extends Activity {
             anim.stop();
     }
 
-    private void onButton2Click() {
-        TransitionManager.go(mAnotherScene, mFadeTransition);
-        swap=mAScene;
-        mAScene=mAnotherScene;
-        mAnotherScene=swap;
-        final Button button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //not actual recursion
-                onButton2Click();
-            }
-        });
+    private void ongotoNextSceneClick() {
+        prevScene=scenei;
+        scenei++;
+        if (scenei==NUMBER_OF_SCENES) {scenei--;}
+        updateScene();
+
     }
+    private void ongotoPrevSceneClick() {
+        prevScene=scenei;
+        scenei--;
+        if (scenei==-1) {scenei++;}
+        updateScene();
+    }
+
+    private void updateScene() {
+        switch (prevScene) {
+            case 0:
+                doScene0Cleanup();
+                break;
+            case 1:
+                doScene1Cleanup();
+                break;
+            case 2:
+                doScene2Cleanup();
+                break;
+        }
+        TransitionManager.go(sceneIndex[scenei], mFadeTransition);
+        switch (scenei) {
+            case 0:
+                doScene0Setup();
+                break;
+            case 1:
+                doScene1Setup();
+                break;
+            case 2:
+                doScene2Setup();
+                break;
+        }
+    }
+
+    private void doScene2Cleanup() {
+        EditText textBox=findViewById(R.id.textBox);
+        petData=petData+textBox.getText().toString();
+        Log.d(TAG, "scene2: "+ petData);
+
+    }
+
+    private void doScene1Cleanup() {
+        EditText textBox=findViewById(R.id.textBox);
+        petData=petData+textBox.getText().toString();
+        Log.d(TAG, "scene1: "+ petData);
+    }
+
+    private void doScene0Cleanup() {
+        EditText textBox=findViewById(R.id.textBox);
+        petData=petData+textBox.getText().toString();
+        Log.d(TAG, "scene3: "+ petData);
+    }
+
+    private void doScene2Setup() {
+
+    }
+
+    private void doScene1Setup() {
+
+    }
+
+    private void doScene0Setup() {
+
+    }
+
 }

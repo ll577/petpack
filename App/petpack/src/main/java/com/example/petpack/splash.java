@@ -1,6 +1,7 @@
 package com.example.petpack;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,5 +16,11 @@ public class splash extends Activity {
 
         Intent intent = new Intent(this, mainMenu.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        finish();
     }
 }

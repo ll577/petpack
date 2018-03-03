@@ -69,9 +69,9 @@ public class createPet extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pet);
-        this.context = getApplicationContext();
+        this.context =
+        getApplicationContext();
         dateBox = findViewById(R.id.birthEdit);
-
 
         //
         //

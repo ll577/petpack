@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anim_grad_animation_list"
+    android:baselineAligned="false"
+    android:gravity="top|fill_horizontal"
     android:orientation="vertical"
     tools:context="com.example.petpack.animatedPetCreation">
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layoutbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="240dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/theme_edittext_lightgray"
-            android:lineSpacingExtra="10sp"
-            android:text="Enter a name for your pet"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textColor="@color/gray" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/theme_edittext_lightgray"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:requiresFadingEdge="horizontal|vertical"
-            android:shadowColor="@android:color/background_dark"
-            android:text="Name"
-            android:textColor="@color/transparent_bg" />
+        app:layout_constraintTop_toBottomOf="@+id/space">
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/gotoPrevScene"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="match_parent"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="240dp"
-        android:background="@android:drawable/ic_media_next"
+        android:layout_marginStart="16dp"
+        android:background="@android:drawable/ic_media_previous"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/gotoNextScene"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:drawable/ic_media_next"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

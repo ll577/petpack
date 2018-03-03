@@ -11,15 +11,15 @@ tools:context="com.example.petpack.animatedPetCreation">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="240dp">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textviewBirthday"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/theme_edittext_lightgray"
-            android:text="Enter a name for your pet"
-            android:textAlignment="center"
+            android:text="Enter the Birthday of your pet"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <Space
@@ -32,11 +32,9 @@ tools:context="com.example.petpack.animatedPetCreation">
             android:layout_height="45dp"
             android:background="@drawable/theme_edittext_lightgray"
             android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:requiresFadingEdge="horizontal|vertical"
-            android:shadowColor="@android:color/background_dark"
-            android:textColor="@color/transparent_bg" />
+            android:hint="Birthday"
+            android:inputType="date" />
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
