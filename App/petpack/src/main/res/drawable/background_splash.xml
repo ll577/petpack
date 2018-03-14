@@ -5,7 +5,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/pp_icon"/>
+            android:src="@mipmap/pp_icon2"/>
     </item>
 
 </layer-list>

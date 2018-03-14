@@ -32,8 +32,10 @@ tools:context="com.example.petpack.animatedPetCreation">
             android:layout_height="45dp"
             android:background="@drawable/theme_edittext_lightgray"
             android:ems="10"
+            android:focusable="false"
             android:hint="Birthday"
-            android:inputType="date" />
+            android:inputType="date"
+            android:onClick="showDatePickerDialog"/>
 
     </LinearLayout>
 

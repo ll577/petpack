@@ -1,9 +1,15 @@
 package com.example.petpack;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
 import android.transition.AutoTransition;
 import android.transition.Scene;
 import android.transition.Transition;
@@ -12,14 +18,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 import static android.content.ContentValues.TAG;
 
-public class animatedPetCreation extends Activity implements View.OnClickListener {
+public class animatedPetCreation extends FragmentActivity implements View.OnClickListener {
     private static final int NUMBER_OF_SCENES=3;
-
     Scene[] sceneIndex = new Scene[NUMBER_OF_SCENES];
     int scenei = 0;
     Transition mFadeTransition = new AutoTransition();
@@ -27,8 +36,6 @@ public class animatedPetCreation extends Activity implements View.OnClickListene
     AnimationDrawable anim;
     String petData="";
     int prevScene=0;
-
-
     //buttons
 
     @Override
@@ -149,5 +156,10 @@ public class animatedPetCreation extends Activity implements View.OnClickListene
     private void doScene0Setup() {
 
     }
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(),"datePicker");
+    }
+
 
 }
