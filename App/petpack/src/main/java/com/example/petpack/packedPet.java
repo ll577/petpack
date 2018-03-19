@@ -3,6 +3,8 @@ package com.example.petpack;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.util.Log;
 
 import java.io.File;
@@ -18,7 +20,9 @@ import java.util.Date;
  */
 
 public class packedPet {
-    private Color priColor,secColor,tertColor;
+    private int priColor;
+    private int secColor;
+    private int tertColor;
     private String name;
     private int age;
     private Date creationDate,birthDate;
@@ -29,70 +33,111 @@ public class packedPet {
 
 
     //creation function
-    public packedPet(Context context, String name) {
+    public packedPet(Context context, String name, boolean save) {
         this.context=context;
         this.name=name;
         compileData();
-        savePet();
+        if (save) {savePet();}
     }
 
-    //TODO compile
+
+
+
+    //TODO compile all set pet data
+    //iguess ! is a delimeter now
+    // dont ever use invidivual peices, just decompile entire thing with decompileData(compiled save data)
+    // 1: name
+    // 2: creation date
+    // 3: birth date
+    // 4: age
+    // 5: primary color
+    // 6: secondary color
+    // 7: tertiary color
+    // 8: bitmap URIs
+    //
     private void compileData() {
-        compiledSaveData=name+"!";
+
+    compiledSaveData=name+"!"+creationDate.toString()+"!"+birthDate.toString()+"!"+age+"!"+priColor+"!"+secColor+"!"+tertColor+"!"+generatedBitmapURI+"!";
     }
-    private void savePet(){
-        writeToFile(compiledSaveData, context);
+    private void decompileDate(String compiledData) {
+        int pri,sec,tert;
+        String[] tokens = compiledData.split("!");
+        name=tokens[0];
+        //TODO PARSE DATE
+        //creationDate=tokens[1];
+        //birthDate=tokens[2];
+        age=Integer.valueOf(tokens[3]);
+        //todo parse color ints
+        priColor= Color.parseColor(tokens[4]);
+
+        secColor=Color.parseColor(tokens[5]);
+        tertColor=Integer.valueOf(tokens[6]);
+        name=tokens[7];
+
+    }
+
+
+    public boolean savePet(){
+        return writeToFile(compiledSaveData, context);
     }
     //TODO load/delete functions
     //to save a pet to file
-    private void writeToFile(String data,Context context) {
+    private boolean writeToFile(String data,Context context) {
+        String errmsg="";
         File path = context.getExternalFilesDir(null);
         File file = new File(path, name+"pet.pak");
         FileOutputStream stream = null;
         try {
             stream = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
-            Log.e("Exception", "File open failed: " + e.toString());
+            errmsg="File open failed: " + e.toString();
+            Log.e("Exception",errmsg );
+            return false;
         }
         try {
             stream.write(data.getBytes());
         }
         catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            errmsg="File write failed: " + e.toString();
+            Log.e("Exception",errmsg );
+            return false;
         }
         finally {
             try {
                 stream.close();
             }
             catch (IOException e) {
-                Log.e("Exception", "File close failed: " + e.toString());
+                errmsg="File close failed: " + e.toString();
+                Log.e("Exception",errmsg );
+                return false;
             }
         }
         Log.e("filepath",path.toString());
+        return true;
 
     }
 
-    public Color getPriColor() {
+    public int getPriColor() {
         return priColor;
     }
 
-    public void setPriColor(Color priColor) {
+    public void setPriColor(int priColor) {
         this.priColor = priColor;
     }
 
-    public Color getSecColor() {
+    public int getSecColor() {
         return secColor;
     }
 
-    public void setSecColor(Color secColor) {
+    public void setSecColor(int secColor) {
         this.secColor = secColor;
     }
 
-    public Color getTertColor() {
+    public int getTertColor() {
         return tertColor;
     }
 
-    public void setTertColor(Color tertColor) {
+    public void setTertColor(int tertColor) {
         this.tertColor = tertColor;
     }
 
